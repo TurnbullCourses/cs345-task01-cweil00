@@ -27,18 +27,18 @@ class BankAccountTest {
         assertTrue(BankAccount.isEmailValid( "a@b.com"));
         assertFalse( BankAccount.isEmailValid(""));
 
-        assertFalse(BankAccount.isEmailValid("testa-@c.com"));
-        assertTrue(BankAccount.isEmailValid("testb-1@c.com"));
-        assertFalse(BankAccount.isEmailValid("a!b@cs.cc"));
-        assertFalse(BankAccount.isEmailValid("a@b.c"));
-        assertFalse(BankAccount.isEmailValid("a@b..c"));
-        assertFalse(BankAccount.isEmailValid("a..b@b.cc"));
-        assertFalse(BankAccount.isEmailValid(".a@b.com"));
-        assertFalse(BankAccount.isEmailValid("a@b"));
-        assertFalse(BankAccount.isEmailValid("a@b!c.com"));
-        assertTrue(BankAccount.isEmailValid("a@b-c.com"));
-        assertFalse(BankAccount.isEmailValid("a@b_c.com"));
-        assertTrue(BankAccount.isEmailValid("a_b@c.com"));
+        assertFalse(BankAccount.isEmailValid("testa-@c.com")); // prefix cannot end in a dash
+        assertTrue(BankAccount.isEmailValid("testb-1@c.com")); // dash within prefix is valid
+        assertFalse(BankAccount.isEmailValid("a!b@cs.cc")); // exclamation mark not allowed in prefix
+        assertFalse(BankAccount.isEmailValid("a@b.c")); // last section of domain must have at least two characters
+        assertFalse(BankAccount.isEmailValid("a@b..c")); // last section of domain must have at least two characters and consecutive periods not allowed
+        assertFalse(BankAccount.isEmailValid("a..b@b.cc")); // consecutive periods not allowed in prefix
+        assertFalse(BankAccount.isEmailValid(".a@b.com")); // prefix must begin with letter
+        assertFalse(BankAccount.isEmailValid("a@b")); // last section of domain must have at least two characters
+        assertFalse(BankAccount.isEmailValid("a@b!c.com")); // exclamation mark not allowed in domain
+        assertTrue(BankAccount.isEmailValid("a@b-c.com")); // dash allowed in domain
+        assertFalse(BankAccount.isEmailValid("a@b_c.com")); // underscore not allowed in domain
+        assertTrue(BankAccount.isEmailValid("a_b@c.com")); // underscore allowed in prefix
     }
 
     @Test
