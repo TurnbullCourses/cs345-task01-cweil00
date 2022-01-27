@@ -20,6 +20,20 @@ class BankAccountTest {
 
         assertEquals(100, bankAccount.getBalance(), 0.001);
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
+
+        //equivalence class - amount is smaller than balance
+        bankAccount.withdraw(50);
+        assertEquals(50, bankAccount.getBalance());
+        //equivalence class - amount is larger than balance
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(100));
+        //boundary case - amount is zero
+        bankAccount.withdraw(0);
+        assertEquals(50, bankAccount.getBalance());
+        //equivalence class - amount is negative
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-10));
+        //boundary case - amount is equal to balance
+        bankAccount.withdraw(bankAccount.getBalance());
+        assertEquals(0, bankAccount.getBalance());
     }
 
     @Test
