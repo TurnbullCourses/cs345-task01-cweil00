@@ -11,6 +11,15 @@ class BankAccountTest {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
 
         assertEquals(200, bankAccount.getBalance(), 0.001);
+
+        //equivalence case - money in bank account
+        assertEquals(200, bankAccount.getBalance());
+        //boundary case - no money in bank account
+        BankAccount bankAccount1 = new BankAccount("c@d.com", 0);
+        assertEquals(0, bankAccount1.getBalance());
+        //equivalence case - balance is negative
+        BankAccount bankAccount2 = new BankAccount("e@f.com", -100);
+        assertEquals(-100, bankAccount2.getBalance());
     }
 
     @Test
@@ -53,6 +62,40 @@ class BankAccountTest {
         assertTrue(BankAccount.isEmailValid("a@b-c.com")); // dash allowed in domain
         assertFalse(BankAccount.isEmailValid("a@b_c.com")); // underscore not allowed in domain
         assertTrue(BankAccount.isEmailValid("a_b@c.com")); // underscore allowed in prefix
+
+        //equivalence case - invalid character at beginning of prefix
+        assertFalse(BankAccount.isEmailValid("#test@test.com"));
+        //equivalence case - invalid character in middle of prefix
+        assertFalse(BankAccount.isEmailValid("te#st@test.com"));
+        //equivalence case - invalid character at end of prefix
+        assertFalse(BankAccount.isEmailValid("test#@test.com"));
+        //equivalence case - dash, dot, or underscore followed by a letter or number in prefix
+        assertTrue(BankAccount.isEmailValid("te-st@test.com"));
+        //equivalence case - dash, dot, or underscore not followed by a letter or number in prefix
+        assertFalse(BankAccount.isEmailValid("test_@test.com"));
+        //equivalence case - more than 2 dots, dashes, underscores in a row in prefix
+        assertFalse(BankAccount.isEmailValid("tes-.-t@test.com"));
+        //boundary case - 2 dots, dashes, or underscores in a row in prefix
+        assertFalse(BankAccount.isEmailValid("t__est@test.com"));
+        //equivalence case - less than two characters in last portion of domain
+        assertFalse(BankAccount.isEmailValid("test@test.c"));
+        //boundary case - 2 characters in last portion of domain
+        assertTrue(BankAccount.isEmailValid("test@test.co"));
+        //equivalence case - more than two characters in last portion of domain
+        assertTrue(BankAccount.isEmailValid("test@test.com"));
+        //equivalence case - invalid character at beginning of domain
+        assertFalse(BankAccount.isEmailValid("test@#test.com"));
+        //equivalence case - invalid character in middle of domain
+        assertFalse(BankAccount.isEmailValid("test@te#st.com"));
+        //equivalence case - invalid character at end of domain
+        assertFalse(BankAccount.isEmailValid("test@test.com#"));
+        //equivalence case - dash not followed by a letter or number in domain
+        assertFalse(BankAccount.isEmailValid("test@test.com-"));
+        //equivalence case - more than 2 dashes in a row in domain
+        assertFalse(BankAccount.isEmailValid("test@te---st.com"));
+        //boundary case - 2 dashes in a row in domain
+        assertFalse(BankAccount.isEmailValid("test@test.c--om"));
+
     }
 
     @Test
