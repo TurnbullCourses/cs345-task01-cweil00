@@ -108,4 +108,18 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
     }
 
+    @Test
+    void isAmountValidTest() {
+        //amount is negative
+        assertFalse(BankAccount.isAmountValid(-10));
+        //amount is positive and has more than two decimal places
+        assertFalse(BankAccount.isAmountValid(10.001));
+        //amount is positive and has two decimal places
+        assertTrue(BankAccount.isAmountValid(10.10));
+        //amount is positive and has less than two decimal places
+        assertTrue(BankAccount.isAmountValid(10.0));
+        //amount is positive and has no decimal places
+        assertTrue(BankAccount.isAmountValid(10));
+    }
+
 }
