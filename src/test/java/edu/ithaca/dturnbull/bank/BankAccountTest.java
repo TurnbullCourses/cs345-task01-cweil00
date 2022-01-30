@@ -43,6 +43,9 @@ class BankAccountTest {
         //boundary case - amount is equal to balance
         bankAccount.withdraw(bankAccount.getBalance());
         assertEquals(0, bankAccount.getBalance());
+
+        BankAccount bankAccount1 = new BankAccount("A@b.com", 5);
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount1.withdraw(0.001));
     }
 
     @Test
@@ -106,6 +109,9 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance(), 0.001);
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("a@b.com", -100));
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("a@b.com", 100.005));
     }
 
     @Test
