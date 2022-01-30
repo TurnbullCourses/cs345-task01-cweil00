@@ -46,6 +46,25 @@ class BankAccountTest {
     }
 
     @Test
+    void depositTest() {
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+
+        //equivalence class - amount is positive
+        bankAccount.deposit(100);
+        assertEquals(300, bankAccount.getBalance());
+        //boundary case - amount is zero
+        bankAccount.deposit(0);
+        assertEquals(300, bankAccount.getBalance());
+        //equivalence class - amount is negative
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(-10));
+        //equivalence class - amount has more than two decimals
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.deposit(0.001));
+        //equivalence class - amout has less than two decimals
+        bankAccount.deposit(0.50);
+        assertEquals(300.50, bankAccount.getBalance());
+    }
+
+    @Test
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));
         assertFalse( BankAccount.isEmailValid(""));

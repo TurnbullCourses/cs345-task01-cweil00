@@ -158,4 +158,13 @@ public class BankAccount {
             }
         }
     }
+
+    /**
+     * Adds money to the bank account
+     * @param amount double, amount of money to add
+     * @throws IllegalArgumentException if amount is invalid
+     */
+    public void deposit(double amount) throws IllegalArgumentException{
+
+    }
 }
