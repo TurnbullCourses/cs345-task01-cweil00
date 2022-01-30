@@ -172,4 +172,15 @@ public class BankAccount {
             throw new IllegalArgumentException("Amount is invalid");
         }
     }
+
+    /**
+     * Transfers money from your account to a different bank account
+     * @param otherAccount account to transfer money to
+     * @param amount amount of money to transfer
+     * @throws IllegalArgumentException
+     * @throws InsufficientFundsException
+     */
+    public void transfer(BankAccount otherAccount, double amount) throws IllegalArgumentException, InsufficientFundsException {
+
+    }
 }

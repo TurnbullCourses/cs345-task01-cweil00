@@ -144,4 +144,23 @@ class BankAccountTest {
         assertTrue(BankAccount.isAmountValid(10));
     }
 
+    @Test
+    void transferTest() throws InsufficientFundsException {
+        BankAccount myAccount = new BankAccount("a@b.com", 1000);
+        BankAccount otherAccount = new BankAccount("c@d.com", 0);
+
+        //equivlance class - transfer money that is less than balance of my account
+        myAccount.transfer(otherAccount, 500);
+        assertEquals(500, myAccount.getBalance());
+        assertEquals(500, otherAccount.getBalance());
+        //equivalence class - transfer money that is more than balance of my account
+        assertThrows(InsufficientFundsException.class, ()-> myAccount.transfer(otherAccount, 1000));
+        //equivalance class - transfer negative amount of money
+        assertThrows(IllegalArgumentException.class, ()-> myAccount.transfer(otherAccount, -100));
+        //equivalance class - transfer an invalid amount of money
+        assertThrows(IllegalArgumentException.class, ()-> myAccount.transfer(otherAccount, 100.00501));
+        //equivalance class - other bank account does not exist
+        assertThrows(IllegalArgumentException.class, ()-> myAccount.transfer(null, 100));
+    }
+
 }
