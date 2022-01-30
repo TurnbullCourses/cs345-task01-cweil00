@@ -139,6 +139,18 @@ public class BankAccount {
      * @return boolean indicating if the amount is valid or not
      */
     public static boolean isAmountValid(double amount){
-        return false;
+        if (amount < 0.0){
+            return false;
+        }
+        else{
+            String temp = Double.toString(amount);
+            int intPlaces = temp.indexOf('.');
+            if ((temp.length() - intPlaces - 1) > 2){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
     }
 }
