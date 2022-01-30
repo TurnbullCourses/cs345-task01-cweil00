@@ -101,13 +101,31 @@ public class BankAccount {
                     if (!validChars.contains(tempChar) && !tempChar.equals("-")){
                         return false;
                     }
+                    else if (tempChar.equals("-")){
+                    
+                        // no consecutive symbols
+                        if (!validChars.contains(String.valueOf(domain1.charAt(i+1)))){ 
+                            return false;
+                        }
+                    }
                 }
                 // validation of domain's second part
-                for (int i = 0; i < domain2.length(); i++){
+                for (int i = 0; i < domain2.length() - 1; i++){
                     String tempChar = String.valueOf(domain2.charAt(i));
                     if (!validChars.contains(tempChar) && !tempChar.equals("-")){
                         return false;
                     }
+                    else if (tempChar.equals("-")){
+                    
+                        // no consecutive symbols
+                        if (!validChars.contains(String.valueOf(domain2.charAt(i+1)))){ 
+                            return false;
+                        }
+                    }
+                }
+
+                if (!validChars.contains(String.valueOf(domain2.charAt(domain2.length()-1)))){
+                    return false;
                 }
             }
             return true;
