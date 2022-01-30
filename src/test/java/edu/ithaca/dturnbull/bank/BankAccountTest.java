@@ -17,9 +17,6 @@ class BankAccountTest {
         //boundary case - no money in bank account
         BankAccount bankAccount1 = new BankAccount("c@d.com", 0);
         assertEquals(0, bankAccount1.getBalance());
-        //equivalence case - balance is negative
-        BankAccount bankAccount2 = new BankAccount("e@f.com", -100);
-        assertEquals(-100, bankAccount2.getBalance());
     }
 
     @Test

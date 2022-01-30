@@ -11,10 +11,15 @@ public class BankAccount {
     public BankAccount(String email, double startingBalance){
         if (isEmailValid(email)){
             this.email = email;
-            this.balance = startingBalance;
         }
         else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
+        }
+        if (isAmountValid(startingBalance)){
+            this.balance = startingBalance;
+        }
+        else{
+            throw new IllegalArgumentException("Amount is not valid");
         }
     }
 
@@ -34,7 +39,7 @@ public class BankAccount {
      * @throws IllegalArgumentException
      */
     public void withdraw (double amount) throws InsufficientFundsException, IllegalArgumentException{
-        if (amount < 0)
+        if (!isAmountValid(amount))
             throw new IllegalArgumentException("Cannot withdraw negative amount");
         else if (amount <= balance)
             balance -= amount;
