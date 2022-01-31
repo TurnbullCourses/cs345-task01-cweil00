@@ -6,16 +6,16 @@ public class BankAccount {
     private double balance;
 
     /**
-     * @throws IllegalArgumentException if email is invalid
+     * @throws IllegalArgumentException if email or startingBalance is invalid
      */
     public BankAccount(String email, double startingBalance){
-        if (isEmailValid(email)){
+        if (isEmailValid(email)){ //make sure email is valid
             this.email = email;
         }
         else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
         }
-        if (isAmountValid(startingBalance)){
+        if (isAmountValid(startingBalance)){ //make sure startingBalance is valid
             this.balance = startingBalance;
         }
         else{
@@ -23,10 +23,16 @@ public class BankAccount {
         }
     }
 
+    /**
+     * @return balance of bank account
+     */
     public double getBalance(){
         return balance;
     }
 
+    /**
+     * @return email associated with bank account
+     */
     public String getEmail(){
         return email;
     }
@@ -39,9 +45,9 @@ public class BankAccount {
      * @throws IllegalArgumentException
      */
     public void withdraw (double amount) throws InsufficientFundsException, IllegalArgumentException{
-        if (!isAmountValid(amount))
+        if (!isAmountValid(amount)) //makes sure amount is valid
             throw new IllegalArgumentException("Cannot withdraw negative amount");
-        else if (amount <= balance)
+        else if (amount <= balance) //withdraw money if amount is below balance
             balance -= amount;
         else
             throw new InsufficientFundsException("Not enough money");
@@ -144,13 +150,13 @@ public class BankAccount {
      * @return boolean indicating if the amount is valid or not
      */
     public static boolean isAmountValid(double amount){
-        if (amount < 0.0){
+        if (amount < 0.0){ //checks if amount is negative
             return false;
         }
         else{
-            String temp = Double.toString(amount);
-            int intPlaces = temp.indexOf('.');
-            if ((temp.length() - intPlaces - 1) > 2){
+            String temp = Double.toString(amount); //put amount to string
+            int intPlaces = temp.indexOf('.'); //get . position
+            if ((temp.length() - intPlaces - 1) > 2){ //figure out number of decimals and check if more than 2
                 return false;
             }
             else{
@@ -165,7 +171,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is invalid
      */
     public void deposit(double amount) throws IllegalArgumentException{
-        if (isAmountValid(amount)){
+        if (isAmountValid(amount)){ //make sure amount is valid
             balance = balance + amount;
         }
         else{
@@ -182,10 +188,10 @@ public class BankAccount {
      */
     public void transfer(BankAccount otherAccount, double amount) throws IllegalArgumentException, InsufficientFundsException {
         if (!isAmountValid(amount) || otherAccount == null){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(); //make sure other bank account exists
         }
         else{
-            this.withdraw(amount);
+            this.withdraw(amount); //transfer the money
             otherAccount.deposit(amount);
         }
     }
