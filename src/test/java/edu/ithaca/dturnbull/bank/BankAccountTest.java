@@ -148,6 +148,8 @@ class BankAccountTest {
         assertTrue(BankAccount.isAmountValid(10.0));
         //amount is positive and has no decimal places
         assertTrue(BankAccount.isAmountValid(10));
+        //amount valid with many decimal places
+        assertTrue(BankAccount.isAmountValid(10.0000));
     }
 
     @Test
